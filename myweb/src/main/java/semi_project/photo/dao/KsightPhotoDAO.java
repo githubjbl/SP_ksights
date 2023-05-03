@@ -1,6 +1,8 @@
 package semi_project.photo.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -33,6 +35,20 @@ public class KsightPhotoDAO {
 		List<KsightPhotoDTO> list = null;
 		try(SqlSession session = MybatisManager.getInstance().openSession()){
 			list = session.selectList("SP_photo.index_list", maintitle);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	public List<KsightPhotoDTO> list_ingi(String sort, String type, String email) {
+		List<KsightPhotoDTO> list = null;
+		try(SqlSession session = MybatisManager.getInstance().openSession()){
+			Map<String,Object> map = new HashMap<>();
+			map.put("sort", sort);
+			map.put("type", type);
+			map.put("email", email);
+			list = session.selectList("SP_photo.ingi_list", map);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="/myweb/semi_project/include/user-profiles-list-small.css">
 <script type="application/javascript"
 	src="https://zelkun.tistory.com/attachment/cfile8.uf@99BB7A3D5D45C065343307.js"></script>
-<title>Nboard_index By bootstarp</title>
+<title>K-SIGHT</title>
 <%@ include file="/semi_project/include/headForSemi.jsp" %>
 <style type="text/css">
 
@@ -162,98 +162,96 @@ function checksight(){
 <jsp:include page="/semi_project/module/navbarUse.jsp"></jsp:include>
 
 <!-- Content page -->
- <div class="container">
-  <div class="row">
-  <div class="col-md-2 col-lg-2 p-b-80">
-  </div>
+<div class="container">
+  	<div class="row">
+  		<div class="col-md-2 col-lg-2 p-b-80">
+  	</div>
   
-  <form name="sightupload" method="post" action="${path}/SP_ksight/upload.do" enctype="multipart/form-data">
-   <div class="col-md-8 col-lg-9 p-b-80" id="uploaddiv">
+  	<form name="sightupload" method="post" action="${path}/SP_ksight/upload.do" enctype="multipart/form-data">
+   		<div class="col-md-8 col-lg-9 p-b-80" id="uploaddiv">
    
-   <div><h2><input name="sightname" id="sightname" maxlength="200" placeholder="SIGHT의 이름" style="width: 80%;"> @</h2></div> 
+   		<div><h2><input name="sightname" id="sightname" maxlength="200" placeholder="SIGHT의 이름" style="width: 80%;"> @</h2></div> 
   
-   <div><h2><input name="title" id="title" maxlength="200" placeholder="SIGHT의 촬영주체" style="width: 80%;"></h2></div>
+   		<div><h2><input name="title" id="title" maxlength="200" placeholder="SIGHT의 촬영주체" style="width: 80%;"></h2></div>
   
-   <div>
-    <img src="${path}/semi_project/images/camera2.svg" onerror="this.src='${path}/semi_project/images/camera2.svg'" id="preview" height="500px">      
-    <input type="file" name="photoUL" id="photoUL" onchange="readURL(this);">
-   </div>
+   		<div>
+    		<img src="${path}/semi_project/images/camera2.svg" onerror="this.src='${path}/semi_project/images/camera2.svg'" id="preview" height="500px">      
+    		<input type="file" name="photoUL" id="photoUL" onchange="readURL(this);">
+   		</div>
    
-   <div>
-    <textarea name="explain" rows="10" placeholder="어떤 촬영을 했는지" style="width: 80%;"></textarea>
-   </div> 
+   		<div>
+    		<textarea name="explain" rows="10" placeholder="어떤 촬영을 했는지" style="width: 80%;"></textarea>
+   		</div> 
         
-   <div>
-    <label for="mediatype" class="col-sm-2 col-form-label">촬영의 종류</label>
-     <div><h4>
-           K-Drama <input type="radio" class="form-control-sm" name="mediatype" value="drama">
-            / K-Pop <input type="radio" class="form-control-sm" name="mediatype" value="artist">
-            / K-Variety <input type="radio" class="form-control-sm" name="mediatype" value="show">
-            / K-Movie <input type="radio" class="form-control-sm" name="mediatype" value="movie">
-     </h4></div>
-   </div>
+   		<div>
+    		<label for="mediatype" class="col-sm-2 col-form-label">촬영의 종류</label>
+     		<div><h4>
+           		K-Drama <input type="radio" class="form-control-sm" name="mediatype" value="drama">
+            	/ K-Pop <input type="radio" class="form-control-sm" name="mediatype" value="artist">
+            	/ K-Variety <input type="radio" class="form-control-sm" name="mediatype" value="show">
+            	/ K-Movie <input type="radio" class="form-control-sm" name="mediatype" value="movie">
+     		</h4></div>
+   		</div>
    
-   <div>
-    <label for="sighttype" class="col-sm-2 col-form-label">SIGHT의 종류</label>
-     <div><h4>
-           식당 <input type="radio" class="form-control-sm" name="sighttype" value="restaurant">
-            / 카페 <input type="radio" class="form-control-sm" name="sighttype" value="cafe">
-            / 숙박 <input type="radio" class="form-control-sm" name="sighttype" value="stay">
-            / 상점 <input type="radio" class="form-control-sm" name="sighttype" value="store">
-            / 역 <input type="radio" class="form-control-sm" name="sighttype" value="station">
-            / 편의점 <input type="radio" class="form-control-sm" name="sighttype" value="cvs">
-            / 기타 <input type="radio" class="form-control-sm" name="sighttype" value="playground">
-     </h4></div>
-   </div>
+   		<div>
+    		<label for="sighttype" class="col-sm-2 col-form-label">SIGHT의 종류</label>
+     		<div><h4>
+           		식당 <input type="radio" class="form-control-sm" name="sighttype" value="restaurant">
+           		/ 카페 <input type="radio" class="form-control-sm" name="sighttype" value="cafe">
+            	/ 숙박 <input type="radio" class="form-control-sm" name="sighttype" value="stay">
+            	/ 상점 <input type="radio" class="form-control-sm" name="sighttype" value="store">
+            	/ 역 <input type="radio" class="form-control-sm" name="sighttype" value="station">
+            	/ 편의점 <input type="radio" class="form-control-sm" name="sighttype" value="cvs">
+            	/ 기타 <input type="radio" class="form-control-sm" name="sighttype" value="playground">
+     		</h4></div>
+   		</div>
         
-    <div>
-      <div class="col-sm-4">
-       <select class="form-control" id="member_address1">
-        <option id="sido" value="">시/도</option>
-       </select>
-       <input type="hidden" id="v_member_address1" name="v_member_address1" value="">
-      </div>
+    	<div>
+      		<div class="col-sm-4">
+       			<select class="form-control" id="member_address1">
+        			<option id="sido" value="">시/도</option>
+       			</select>
+       			<input type="hidden" id="v_member_address1" name="v_member_address1" value="">
+      		</div>
       
-      <div class="col-sm-4">
-       <select class="form-control" id="member_address2">
-	    <option id="sigungu" value="">시/군/구</option>
-       </select>
-       <input type="hidden" id="v_member_address2" name="v_member_address2" value="">
-      </div>
+      		<div class="col-sm-4">
+       			<select class="form-control" id="member_address2">
+	    			<option id="sigungu" value="">시/군/구</option>
+       			</select>
+       			<input type="hidden" id="v_member_address2" name="v_member_address2" value="">
+      		</div>
       
-      <div>
-       <input name="addressdetail" maxlength="50" placeholder="나머지 주소를 입력하세요" style="width: 80%;">
-      </div>
-      
-     </div>
+      		<div>
+       			<input name="addressdetail" maxlength="50" placeholder="나머지 주소를 입력하세요" style="width: 80%;">
+      		</div>
+     	</div>
        
-     <div>
-      <input name="opentime" maxlength="200" placeholder="영업시간을 입력하세요" style="width: 80%;">
-     </div>
+     	<div>
+      		<input name="opentime" maxlength="200" placeholder="영업시간을 입력하세요" style="width: 80%;">
+     	</div>
      
-     <div>
-      <input name="breaktime" maxlength="200" placeholder="마감시간을 입력하세요" style="width: 80%;">
-     </div>
+     	<div>
+      		<input name="breaktime" maxlength="200" placeholder="마감시간을 입력하세요" style="width: 80%;">
+     	</div>
      
-     <div>
-      <input name="holiday" maxlength="200" placeholder="휴무일을 입력하세요" style="width: 80%;">
-     </div>
+     	<div>
+      		<input name="holiday" maxlength="200" placeholder="휴무일을 입력하세요" style="width: 80%;">
+     	</div>
      
-     <div>
-      <input name="tel" maxlength="100" placeholder="SIGHT의 전화번호를 입력하세요" style="width: 80%;">
-     </div>
+     	<div>
+      		<input name="tel" maxlength="100" placeholder="SIGHT의 전화번호를 입력하세요" style="width: 80%;">
+     	</div>
      
-     <div style="border: none;">
-      <button class="btn btn-info btn-lg" type="button" id="btnCheckSight">등록하기</button>
-     </div>
+     	<div style="border: none;">
+      		<button class="btn btn-info btn-lg" type="button" id="btnCheckSight">등록하기</button>
+     	</div>
      
-    </div>
-   </form>
+    	</div>
+   	</form>
     
-   </div>
-  </div>
-	
-
+   	</div>
+  
+</div>
 
 </body>
 </html>

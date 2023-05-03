@@ -9,7 +9,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<title>Nboard_index By bootstarp</title>
+<title>K-SIGHT</title>
 <%@ include file="/semi_project/include/headForSemi.jsp" %>
 <style type="text/css">
 body {
@@ -194,7 +194,7 @@ function klogin(){
    <span class="icon-bar"></span>
    <span class="icon-bar"></span>
   </button>
-  <a class="navbar-brand" href="${path}/semi_project/mainpage.jsp">K-Sights</a>
+  <a class="navbar-brand" href="${path}/SP_ksight_photo/index.do">K-Sights</a>
  </div>
 	
 <!-- navbar 메뉴들 -->

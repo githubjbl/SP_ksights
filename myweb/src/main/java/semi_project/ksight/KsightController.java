@@ -186,9 +186,23 @@ public class KsightController extends HttpServlet {
 			rd.forward(request, response);
 		}else if(uri.indexOf("sort_t.do") != -1) {
 			String title = request.getParameter("tit");
-			List<KsightDTO> list = dao.sort_t_list(title);
+			int count = dao.sort_t_list_count(title);
+			int curPage = 1;
+			if(request.getParameter("curPage") != null) {
+				curPage = Integer.parseInt(request.getParameter("curPage"));
+			}
+			Map<String,Object> map = new HashMap<>();
+			Pager pager = new Pager(count, curPage);
+			int start = pager.getPageBegin();
+			int end = pager.getPageEnd();
+			map.put("start", start);
+			map.put("end", end);
+			map.put("title", title);
+			map.put("count", count);
+			List<KsightDTO> list = dao.sort_t_list(map);
 			request.setAttribute("list", list);
-			request.setAttribute("title", title);
+			request.setAttribute("map", map);
+			request.setAttribute("page", pager);
 			String page = "/semi_project/ksight/ksight_list_title.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
@@ -211,6 +225,10 @@ public class KsightController extends HttpServlet {
 			int start = pager.getPageBegin();
 			int end = pager.getPageEnd();
 			List<KsightDTO> list = dao.ksight_list_ingi(start,end,sort,type,email);
+			
+			KsightPhotoDAO pdao = new KsightPhotoDAO();
+			List<KsightPhotoDTO> plist = pdao.list_ingi(sort,type,email);
+			
 			System.out.println("list"+list);
 			request.setAttribute("page", pager);
 			request.setAttribute("sort", sort);
@@ -300,7 +318,7 @@ public class KsightController extends HttpServlet {
 			System.out.println(pdto);
 			KsightPhotoDAO pdao = new KsightPhotoDAO();
 			pdao.upload(pdto);
-			String page = "/semi_project/mainpage.jsp";
+			String page = "/semi_project/index.jsp";
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
 			writer.println("<script>alert('등록 되었습니다.'); location.href='"+context+page+"'</script>");

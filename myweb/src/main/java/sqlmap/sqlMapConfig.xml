@@ -15,8 +15,6 @@
 	</environments>
 	<!-- 실제 sql query -->
 	<mappers>
-	 <mapper resource="/myweb/mapper/member.xml"></mapper><!-- mapper등록!!!! -->
-	 <mapper resource="/myweb/mapper/board.xml"/>
 	 
 	 <!-- 세미프로젝트용 매퍼 -->
 	 <mapper resource="/semi_project/mapper/ksight.xml"/>

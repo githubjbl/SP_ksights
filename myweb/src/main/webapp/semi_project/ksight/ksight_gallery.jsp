@@ -4,12 +4,14 @@
 <html>
 <head>
 
+<!-- 사진갤러리 -->
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	
 	<%@ include file="/semi_project/include/headForSemi.jsp" %>
     
-    <title>Freebie: 4 Bootstrap Gallery Templates</title>
+    <title>K-GALLERY</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
@@ -30,13 +32,18 @@
         <div class="row">
           
           <c:forEach var="photo" items="${plist}">
-            <div class="col-sm-6 col-md-4">
+            
+             <div class="col-sm-6 col-md-4">
+                
                 <a class="lightbox" href="${path}/semi_project/images/ksights/${photo.photo_url}">
                     <img src="${path}/semi_project/images/ksights/${photo.photo_url}" alt="${photo.photo_sight}${photo.photonum}" height="280px">
                 </a>
-            <span><fmt:formatDate value="${photo.upload_date}" pattern="yyyy년 MM월 dd일 "/></span>
-            <span style="float: right; margin-right: 20px;">${photo.id}</span>
-            </div>
+                
+                <span><fmt:formatDate value="${photo.upload_date}" pattern="yyyy년 MM월 dd일 "/></span>
+                <span style="float: right; margin-right: 20px;">${photo.id}</span>
+             
+             </div>
+          
           </c:forEach>
           
         </div>

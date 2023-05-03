@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.bundle.min.js"></script>
-<title>Nboard_index By bootstarp</title>
+<title>KSIGHT</title>
 <%@ include file="/semi_project/include/headForSemi.jsp" %>
 <style type="text/css">
 /* 맨위 회원관리목록으로 쓸것. */
@@ -139,12 +139,12 @@ function deletem(email){
                 </table>
                 <!-- 데이터 넘겨주는 용도의 form -->
                  <form name="memberform" method="post" action="${path}/SP_ksight_member/view.do">
-  <input type="hidden" name="email" value="${dto.email}">
-  <input type="hidden" name="member_level" value="${dto.member_level}">
- </form>
- <form name="deleteform" method="post" action="${path}/SP_ksight_member/delete.do">
-  <input type="hidden" name="email" value="${dto.email}">
- </form>
+  					<input type="hidden" name="email" value="${dto.email}">
+  					<input type="hidden" name="member_level" value="${dto.member_level}">
+ 				 </form>
+ 				 <form name="deleteform" method="post" action="${path}/SP_ksight_member/delete.do">
+  					<input type="hidden" name="email" value="${dto.email}">
+ 				 </form>
             
               </div>
               <div class="panel-footer">
@@ -167,8 +167,9 @@ function deletem(email){
                 </div>
               </div>
             </div>
-
-</div></div></div>
+        </div>
+  	</div>
+</div>
 
 </body>
 </html>

@@ -77,10 +77,10 @@ public class KsightDAO {
 		}
 		return list;
 	}
-	public List<KsightDTO> sort_t_list(String title) {
+	public List<KsightDTO> sort_t_list(Map<String, Object> map) {
 		List<KsightDTO> list = null;
 		try(SqlSession session = MybatisManager.getInstance().openSession()){
-			list = session.selectList("SP_ksight.sort_t_list", title);
+			list = session.selectList("SP_ksight.sort_t_list", map);
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -156,6 +156,16 @@ public class KsightDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public int sort_t_list_count(String title) {
+		int result = 0;
+		try(SqlSession session = MybatisManager.getInstance().openSession()){
+			result = session.selectOne("SP_ksight.sort_t_count", title);
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 

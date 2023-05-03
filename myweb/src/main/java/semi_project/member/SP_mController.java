@@ -104,7 +104,7 @@ public class SP_mController extends HttpServlet {
 			dto.setPhone(phone);
 			dto.setBirthday(birthday);
 			dao.insert(dto);
-			String page = "/semi_project/mainpage.jsp";
+			String page = "/semi_project/index.jsp";
 			response.sendRedirect(context+page);
 		}else if(uri.indexOf("toupdate.do") != -1) {
 			String email = request.getParameter("email");
@@ -157,7 +157,7 @@ public class SP_mController extends HttpServlet {
 				String page2 = "/semi_project/member/member_register.jsp";
 				String referrerPage = request.getHeader("referer");
 				if(referrerPage.indexOf(page) != -1 || referrerPage.indexOf(page2) != -1) {
-					response.sendRedirect(context+"/semi_project/mainpage.jsp");
+					response.sendRedirect(context+"/semi_project/index.jsp");
 				}else {
 					response.sendRedirect(referrerPage);
 				}
@@ -202,7 +202,7 @@ public class SP_mController extends HttpServlet {
 			dto.setEmail(email);
 			dto.setMember_name(password);
 			dao.changePassword(dto);
-			String page = "/semi_project/mainpage.jsp";
+			String page = "/semi_project/index.jsp";
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
 			writer.println("<script>alert('비밀번호가 변경되었습니다.'); location.href='"+context+page+"'</script>");
@@ -210,7 +210,7 @@ public class SP_mController extends HttpServlet {
 		}else if(uri.indexOf("logout.do") != -1) {
 			HttpSession session = request.getSession();
 			session.invalidate();
-			String page = "/semi_project/mainpage.jsp";
+			String page = "/semi_project/index.jsp";
 			response.setContentType("text/html; charset=UTF-8");
 			PrintWriter writer = response.getWriter();
 			writer.println("<script>alert('로그아웃 되었습니다.'); location.href='"+context+page+"'</script>");

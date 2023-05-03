@@ -157,12 +157,27 @@
  order by title
  </select>
  
+ <select id="sort_t_count" resultType="int">
+  select count(*)
+  from (select sightname, address, sighttype, count(*) as scount 
+        from ksight
+        where title=#{title}
+        group by sightname, address, sighttype)
+ </select>
+ 
  <select id="sort_t_list" resultType="semi_project.ksight.dto.KsightDTO">
-  select sightname, address, sighttype, count(*) as scount 
-  from ksight
-  where title=#{title}
-  group by sightname, address, sighttype
-  order by sightname
+ select * 
+  from (
+       select A.*, rownum as rn
+       from (
+            select sightname, address, sighttype, count(*) as scount 
+            from ksight
+            where title=#{title}
+            group by sightname, address, sighttype
+            order by sightname
+            ) A
+       ) 
+  where rn between #{start} and #{end}
  </select>
  
  

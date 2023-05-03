@@ -4,6 +4,6 @@
 <c:if test="${sessionScope.emailId == null }">
  <script>
   alert("잘못된 접근입니다.");
-  location.href="${path}/semi_project/mainpage.jsp";
+  location.href="${path}/SP_ksight_photo/index.do";
  </script>
 </c:if>

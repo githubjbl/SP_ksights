@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Index by BootStrap</title>
+  <title>K-SIGHT</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -54,19 +54,19 @@ $(function(){
   
    <div class="item active" style="background-image: url('/myweb/semi_project/images/k-pop.jpg');">
     <div class="container text-center">
-     <h1 class="jumbo_h1">K-POP</h1>      
+     <h1 class="jumbo_h1">K-SIGHT</h1>      
     </div>
    </div>
     
     <div class="item" style="background-image: url('/myweb/semi_project/images/k-drama.jpg');">
      <div class="container text-center">
-     <h1 class="jumbo_h1">K-DRAMA</h1>      
+     <h1 class="jumbo_h1">K-SIGHT</h1>      
      </div>
     </div>
     
     <div class="item" style="background-image: url('/myweb/semi_project/images/k-movie.jpg');">
      <div class="container text-center">
-     <h1 class="jumbo_h1">K-MOVIE</h1>      
+     <h1 class="jumbo_h1">K-SIGHT</h1>      
      </div>
     </div>
     

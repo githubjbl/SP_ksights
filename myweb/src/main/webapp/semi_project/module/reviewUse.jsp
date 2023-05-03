@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.bundle.min.js"></script>
-<title>Nboard_index By bootstarp</title>
+<title>K-SIGHT</title>
 <%@ include file="/semi_project/include/headForSemi.jsp" %>
 <style type="text/css">
 body {
@@ -110,25 +110,27 @@ function deleteR(num){
 <body>
 <div style="margin-top: 80px;">
    	<form method="post" name="sendform">
-   	<input type="hidden" value="<%= request.getParameter("rsightname")%>" name="rsightname">
-   <h2>Sight정보에 대한 댓글과 별점</h2><br>
+   		<input type="hidden" value="<%= request.getParameter("rsightname")%>" name="rsightname">
+   		<h2>Sight정보에 대한 댓글과 별점</h2><br>
+		
 		<div class="row" align="center">
 			<div class="col-md-6">
 				<div class="rating-block">
 					<h4>Sight의 정보 평점</h4>
 					<h2 class="bold padding-bottom-7"> ${ratedto.c_avg} <small>/ 5</small></h2> 
-		<!-- 별 버튼 값 구현해야함 -->
+			
+			<!-- 별 버튼 값 구현 -->
 					<div class="starRev">
-  <!-- 편의 상 가장 첫번째의 별은 기본으로 class="on"이 되게 설정해주었습니다. -->
-  <span class="starR on" id="starR1">⭐</span>
-  <span class="starR" id="starR2">⭐</span>
-  <span class="starR" id="starR3">⭐</span>
-  <span class="starR" id="starR4">⭐</span>
-  <span class="starR" id="starR5">⭐</span>
-  <input type="hidden" value="starR1" name="rate" id="rate">
-</div>
+  						<span class="starR on" id="starR1">⭐</span>
+  						<span class="starR" id="starR2">⭐</span>
+  						<span class="starR" id="starR3">⭐</span>
+  						<span class="starR" id="starR4">⭐</span>
+  						<span class="starR" id="starR5">⭐</span>
+  						<input type="hidden" value="starR1" name="rate" id="rate">
+					</div>
 				</div>
 			</div>
+			
 			<div class="col-md-6">
 				<h4>총 (${ratedto.c_all})명 참가</h4>
 				
@@ -136,6 +138,7 @@ function deleteR(num){
 					<div class="pull-left" style="width:35px; line-height:1;">
 						<div style="height:9px; margin:5px 0;">5 <span class="glyphicon glyphicon-star"></span></div>
 					</div>
+					
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
 						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="${ratedto.c_5/ratedto.c_all*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${ratedto.c_5/ratedto.c_all*100}%">
@@ -143,6 +146,7 @@ function deleteR(num){
 						  </div>
 						</div>
 					</div>
+					
 					<div class="pull-right" style="margin-left:10px;">5점 (${ratedto.c_5})</div>
 				</div>
 				
@@ -150,6 +154,7 @@ function deleteR(num){
 					<div class="pull-left" style="width:35px; line-height:1;">
 						<div style="height:9px; margin:5px 0;">4 <span class="glyphicon glyphicon-star"></span></div>
 					</div>
+					
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
 						  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="${ratedto.c_4/ratedto.c_all*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${ratedto.c_4/ratedto.c_all*100}%">
@@ -157,6 +162,7 @@ function deleteR(num){
 						  </div>
 						</div>
 					</div>
+					
 					<div class="pull-right" style="margin-left:10px;">4점 (${ratedto.c_4})</div>
 				</div>
 				
@@ -164,6 +170,7 @@ function deleteR(num){
 					<div class="pull-left" style="width:35px; line-height:1;">
 						<div style="height:9px; margin:5px 0;">3 <span class="glyphicon glyphicon-star"></span></div>
 					</div>
+					
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
 						  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="${ratedto.c_3/ratedto.c_all*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${ratedto.c_3/ratedto.c_all*100}%">
@@ -171,6 +178,7 @@ function deleteR(num){
 						  </div>
 						</div>
 					</div>
+					
 					<div class="pull-right" style="margin-left:10px;">3점 (${ratedto.c_3})</div>
 				</div>
 				
@@ -178,6 +186,7 @@ function deleteR(num){
 					<div class="pull-left" style="width:35px; line-height:1;">
 						<div style="height:9px; margin:5px 0;">2 <span class="glyphicon glyphicon-star"></span></div>
 					</div>
+					
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
 						  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="${ratedto.c_2/ratedto.c_all*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${ratedto.c_2/ratedto.c_all*100}%">
@@ -185,6 +194,7 @@ function deleteR(num){
 						  </div>
 						</div>
 					</div>
+					
 					<div class="pull-right" style="margin-left:10px;">2점 (${ratedto.c_2})</div>
 				</div>
 				
@@ -192,6 +202,7 @@ function deleteR(num){
 					<div class="pull-left" style="width:35px; line-height:1;">
 						<div style="height:9px; margin:5px 0;">1 <span class="glyphicon glyphicon-star"></span></div>
 					</div>
+					
 					<div class="pull-left" style="width:180px;">
 						<div class="progress" style="height:9px; margin:8px 0;">
 						  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="${ratedto.c_1/ratedto.c_all*100}" aria-valuemin="0" aria-valuemax="100" style="width: ${ratedto.c_1/ratedto.c_all*100}%">
@@ -199,8 +210,10 @@ function deleteR(num){
 						  </div>
 						</div>
 					</div>
+					
 					<div class="pull-right" style="margin-left:10px;">1점 (${ratedto.c_1})</div>
 				</div>
+			
 			</div>			
 		</div>			
 		
@@ -212,60 +225,62 @@ function deleteR(num){
                 <label id="messageLabel" for="message">comment</label>
                 <textarea class="form-control input-sm " type="textarea" name="content" id="content" placeholder="별점 평가해주세요." maxlength="140" rows="7"></textarea>
                 <button class="form-control input-sm btn btn-success" id="btnSendR" name="btnSendR" type="button" style="height:35px"> Send</button>
-                    <span class="help-block"><p id="characterLeft" class="help-block">댓글은 최대 200글자까지 입력가능합니다.</p></span>                    
+                <span class="help-block"><p id="characterLeft" class="help-block">댓글은 최대 200글자까지 입력가능합니다.</p></span>                    
             </div>
        
         <br style="clear:both">
 		</div>
-		 </form>
+	</form>
 		
 		
-		<div class="row">
-		   <c:forEach var="rlist" items="${rlist}">
-			<div class="col-md-11">
-				<hr/>
-				<div class="review-block">
-					<div class="row">
-						<div class="col-sm-3">
-							<img src="${path}/semi_project/images/person-square" class="img-rounded">
-							<div class="review-block-name"><b>${rlist.id}</b></div>
-							<div class="review-block-date">
+	<div class="row">
+	
+	<c:forEach var="rlist" items="${rlist}">
+		<div class="col-md-11">
+		<hr/>
+			<div class="review-block">
+				<div class="row">
+					
+					<div class="col-sm-3">
+						<img src="${path}/semi_project/images/person-square.svg" class="img-rounded" style="width: 100px;">
+						<div class="review-block-name"><b>${rlist.id}</b></div>
+						<div class="review-block-date">
 							 ${rlist.write_date}
-							<br/>1 day ago 계산식 짜보자</div>
-						</div>
-						<div class="col-sm-9">
-							<div class="review-block-rate">
-								<c:forEach var="ratecnt" begin="1" end="${rlist.rate}">
-								 <span class="starR on">⭐</span>
-								</c:forEach>
-								<c:if test="${rlist.rate < 5}">
-								 <c:forEach var="ratecntd" begin="1" end="${5-rlist.rate}">
-								 <span class="starR">⭐</span>
-								</c:forEach>
-								</c:if>
-								
-								<c:if test="${rlist.email eq sessionScope.email}">
-								<a href="#" style="float: right;" onclick="deleteR('${rlist.rnum}')">삭제</a>
-								</c:if>
-							</div>
-							<div class="review-block-description">${rlist.content}</div>
 						</div>
 					</div>
-					<hr/>
+						
+					<div class="col-sm-9">
+						<div class="review-block-rate">
+						<c:forEach var="ratecnt" begin="1" end="${rlist.rate}">
+							<span class="starR on">⭐</span>
+						</c:forEach>
+						
+					<c:if test="${rlist.rate < 5}">
+						<c:forEach var="ratecntd" begin="1" end="${5-rlist.rate}">
+							<span class="starR">⭐</span>
+						</c:forEach>
+					</c:if>
+								
+					<c:if test="${rlist.email eq sessionScope.email}">
+							<a href="#" style="float: right;" onclick="deleteR('${rlist.rnum}')">삭제</a>
+					</c:if>
+						</div>
+					<div class="review-block-description">${rlist.content}</div>
 				</div>
 			</div>
-					</c:forEach>
+			<hr/>
 		</div>
+	</div>
+	</c:forEach>
+	</div>
 		
-		<form method="post" name="deleteReview" action="${path}/SP_ksight_review/delete.do">
+	<form method="post" name="deleteReview" action="${path}/SP_ksight_review/delete.do">
 		 <input type="hidden" id="rnum" name="rnum" value="">
 		 <input type="hidden" value="<%= request.getParameter("rsightname")%>" name="rsightname">
-		</form>
+	</form>
 		
 		
-		
-		
-  </div>
+</div>
 
 </body>
 </html>

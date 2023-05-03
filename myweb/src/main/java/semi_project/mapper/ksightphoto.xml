@@ -16,10 +16,57 @@
  </select>
  
  <select id="index_list" resultType="semi_project.photo.dto.KsightPhotoDTO">
-  select sightname, photo_url
+  select photo_sight, photo_url
   from ksight K, ksight_photo P
   where k.sightname=p.photo_sight and k.title=#{maintitle}
   order by upload_date
+ </select>
+ 
+ <select id="list_ingi" resultType="semi_project.photo.dto.KsightPhotoDTO">
+   <choose>
+   <when test="sort != null and 'film'.equalsIgnoreCase(sort) or 'none'.equalsIgnoreCase(sort)">
+     select rank() over(order by K.scount desc) sortnum, K.sightname, nvl(R.rcount,0) tcount, K.address, K.sighttype, K.scount
+   </when>
+   <when test="sort != null and 'visit'.equalsIgnoreCase(sort)">
+     select rank() over(order by nvl(R.rcount,0) desc) sortnum, K.sightname, nvl(R.rcount,0) tcount, K.address, K.sighttype, K.scount
+   </when>  
+  </choose>
+     from(
+         select sightname, address, sighttype, count(*) as scount 
+         from ksight
+       <if test="email != null and type != null and 'like'.equalsIgnoreCase(type)">
+         where mediatype =
+         				(select mediatype
+						 from ksight_member
+						 where email=#{email})
+       </if>
+         group by sightname, address, sighttype
+         ) K 
+     left outer join 
+         (
+          select rsightname, count(*) as rcount
+          from ksight_review
+          group by rsightname
+          order by rcount desc
+          ) R
+     on R.rsightname = K.sightname
+     <where>
+      <if test="type != null and 'cafe'.equalsIgnoreCase(type)">
+       sighttype='cafe'
+      </if>
+      <if test="type != null and 'food'.equalsIgnoreCase(type)">
+       sighttype='restaurant'
+      </if>
+      <if test="type != null and 'stay'.equalsIgnoreCase(type)">
+       sighttype='stay'
+      </if>
+      <if test="email != null and type != null and 'near'.equalsIgnoreCase(type)">
+       K.address like 
+		   (select member_address1||' '||member_address2||'%'
+			from ksight_member
+			where email=#{email})
+	  </if>
+     </where>
  </select>
  
 </mapper>
