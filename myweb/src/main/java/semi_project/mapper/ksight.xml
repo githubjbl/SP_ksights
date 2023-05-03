@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SP_ksight">
+
+ <select id="count" resultType="int">
+ <bind name="kword" value="'%'+kword+'%'"/>
+ select count(*)
+ from(
+  		 select sightname, address, sighttype
+  		 from ksight where title like #{kword}
+ 		 union
+ 		 select sightname, address, sighttype
+ 		 from ksight where sightname like #{kword}
+ 		 union
+ 		 select sightname, address, sighttype
+	 	 from ksight where explain like #{kword}
+	 	 union
+	  	 select sightname, address, sighttype
+	 	 from ksight where address like #{kword}
+	 	 )
+  
+ </select>
+ 
+<!-- 공지사항게시판의 글 검색 + 페이징 -->
+ <select id="list" resultType="semi_project.ksight.dto.KsightDTO">
+ <bind name="kword" value="'%'+kword+'%'"/>
+  select * 
+  from (
+   select A.*, rownum as rn
+   from (
+     select sightname, address, sighttype, count(*) as scount
+  	 from(
+    	 select sightname, address, sighttype
+  		 from ksight where title like #{kword}
+ 		 union
+ 		 select sightname, address, sighttype
+ 		 from ksight where sightname like #{kword}
+ 		 union
+ 		 select sightname, address, sighttype
+	 	 from ksight where explain like #{kword}
+	 	 union
+	  	 select sightname, address, sighttype
+	 	 from ksight where address like #{kword}
+	 	 )
+	 group by sightname, address, sighttype
+ 	 order by sightname) A
+   ) 
+  where rn between #{start} and #{end}
+ </select>
+ 
+ <select id="list_title" resultType="semi_project.ksight.dto.KsightDTO">
+  <bind name="kword" value="'%'+kword+'%'"/>
+ select mediatype, title, count(*) as tcount
+ from(
+  select num,mediatype,title,sightname, address, sighttype
+  from ksight where title like #{kword}
+  union
+  select num,mediatype,title,sightname, address, sighttype
+  from ksight where sightname like #{kword}
+  union
+  select num,mediatype,title,sightname, address, sighttype
+  from ksight where explain like #{kword}
+  union
+  select num,mediatype,title,sightname, address, sighttype
+  from ksight where address like #{kword}
+  )
+  group by title,mediatype
+  order by mediatype
+ </select>
+ 
+ 
+ <select id="profile" resultType="semi_project.ksight.dto.KsightDTO">
+  select * 
+  from ksight 
+  where sightname=#{sightname}
+  order by mediatype, title
+ </select>
+
+<select id="sort_list_pager" resultType="semi_project.ksight.dto.KsightDTO">
+ select * 
+ from (
+       select A.*, rownum as rn
+       from (
+             select sightname, address, sighttype, count(*) as scount 
+  		     from ksight
+ 		     <choose>
+  		     <when test='sort != null and "na".equalsIgnoreCase(sort)'>
+ 		     <bind name="member_address1" value="'%'+member_address1+'%'"/>
+  		     <bind name="member_address2" value="'%'+member_address2+'%'"/>
+ 		      where address like #{member_address1} and address like #{member_address2}
+ 		     </when>
+ 		     <otherwise>
+  		     <choose>
+  		     <when test="initial != null and 'abc'.equalsIgnoreCase(initial)">
+  		      where mediatype=#{mediatype} and title &lt; '가'
+    		 </when>
+   		     <when test="initial != null and '전체'.equalsIgnoreCase(initial)">
+  		      where mediatype=#{mediatype}
+  		     </when>
+  		     <otherwise>
+  		      where mediatype=#{mediatype} and title &gt;= #{initial} and title &lt; #{initial2}
+  		     </otherwise>
+ 		     </choose>
+  		     </otherwise>
+ 		     </choose>
+  		     group by sightname, address, sighttype
+ 	   order by sightname) A
+   ) 
+  where rn between #{start} and #{end}
+</select>
+
+ <select id="sort_list" resultType="semi_project.ksight.dto.KsightDTO">
+  select sightname, address, sighttype, count(*) as scount 
+  from ksight
+ <choose>
+  <when test='sort != null and "na".equalsIgnoreCase(sort)'>
+   <bind name="member_address1" value="'%'+member_address1+'%'"/>
+   <bind name="member_address2" value="'%'+member_address2+'%'"/>
+   where address like #{member_address1} and address like #{member_address2}
+  </when>
+  <otherwise>
+   <choose>
+    <when test="initial != null and 'abc'.equalsIgnoreCase(initial)">
+    where mediatype=#{mediatype} and title &lt; '가'
+    </when>
+    <when test="initial != null and '전체'.equalsIgnoreCase(initial)">
+    where mediatype=#{mediatype}
+    </when>
+    <otherwise>
+   where mediatype=#{mediatype} and title &gt;= #{initial} and title &lt; #{initial2}
+    </otherwise>
+   </choose>
+  </otherwise>
+ </choose>
+   group by sightname, address, sighttype
+   order by sightname
+ </select>
+ 
+ 
+ <select id="sort_title" resultType="semi_project.ksight.dto.KsightDTO">
+ select title, count(*) as scount
+ from ksight
+ <choose>
+    <when test="initial != null and 'abc'.equalsIgnoreCase(initial)">
+    where mediatype=#{mediatype} and title &lt; '가'
+    </when>
+    <when test="initial != null and '전체'.equalsIgnoreCase(initial)">
+    where mediatype=#{mediatype}
+    </when>
+    <otherwise>
+   where mediatype=#{mediatype} and title &gt;= #{initial} and title &lt; #{initial2}
+    </otherwise>
+   </choose>
+ group by title
+ order by title
+ </select>
+ 
+ <select id="sort_t_list" resultType="semi_project.ksight.dto.KsightDTO">
+  select sightname, address, sighttype, count(*) as scount 
+  from ksight
+  where title=#{title}
+  group by sightname, address, sighttype
+  order by sightname
+ </select>
+ 
+ 
+ 
+ <select id="list_ingi" resultType="semi_project.ksight.dto.KsightDTO">
+ select * 
+ from (
+   select A.*, rownum as rn
+   from(
+ <choose>
+   <when test="sort != null and 'film'.equalsIgnoreCase(sort) or 'none'.equalsIgnoreCase(sort)">
+     select rank() over(order by K.scount desc) sortnum, K.sightname, nvl(R.rcount,0) tcount, K.address, K.sighttype, K.scount
+   </when>
+   <when test="sort != null and 'visit'.equalsIgnoreCase(sort)">
+     select rank() over(order by nvl(R.rcount,0) desc) sortnum, K.sightname, nvl(R.rcount,0) tcount, K.address, K.sighttype, K.scount
+   </when>  
+  </choose>
+     from(
+         select sightname, address, sighttype, count(*) as scount 
+         from ksight
+       <if test="email != null and type != null and 'like'.equalsIgnoreCase(type)">
+         where mediatype =
+         				(select mediatype
+						 from ksight_member
+						 where email=#{email})
+       </if>
+         group by sightname, address, sighttype
+         ) K 
+     left outer join 
+         (
+          select rsightname, count(*) as rcount
+          from ksight_review
+          group by rsightname
+          order by rcount desc
+          ) R
+     on R.rsightname = K.sightname
+     <where>
+      <if test="type != null and 'cafe'.equalsIgnoreCase(type)">
+       sighttype='cafe'
+      </if>
+      <if test="type != null and 'food'.equalsIgnoreCase(type)">
+       sighttype='restaurant'
+      </if>
+      <if test="type != null and 'stay'.equalsIgnoreCase(type)">
+       sighttype='stay'
+      </if>
+      <if test="email != null and type != null and 'near'.equalsIgnoreCase(type)">
+       K.address like 
+		   (select member_address1||' '||member_address2||'%'
+			from ksight_member
+			where email=#{email})
+	  </if>
+     </where>
+     order by sortnum, sightname
+    ) A
+  )
+  where rn between #{start} and #{end}
+ </select>
+ 
+ 
+ <select id="list_ingi_count" resultType="int">
+ 	select count(*)
+ 	from(
+ 	<choose>
+   <when test="sort != null and 'film'.equalsIgnoreCase(sort) or 'none'.equalsIgnoreCase(sort)">
+     select rank() over(order by K.scount desc) sortnum, K.sightname, nvl(R.rcount,0) tcount, K.address, K.sighttype, K.scount
+   </when>
+   <when test="sort != null and 'visit'.equalsIgnoreCase(sort)">
+     select rank() over(order by nvl(R.rcount,0) desc) sortnum, K.sightname, nvl(R.rcount,0) tcount, K.address, K.sighttype, K.scount
+   </when>  
+  </choose>
+     from(
+         select sightname, address, sighttype, count(*) as scount 
+         from ksight
+       <if test="email != null and type != null and 'like'.equalsIgnoreCase(type)">
+         where mediatype =
+         				(select mediatype
+						 from ksight_member
+						 where email=#{email})
+       </if>
+         group by sightname, address, sighttype
+         ) K 
+     left outer join 
+         (
+          select rsightname, count(*) as rcount
+          from ksight_review
+          group by rsightname
+          order by rcount desc
+          ) R
+     on R.rsightname = K.sightname
+     <where>
+      <if test="type != null and 'cafe'.equalsIgnoreCase(type)">
+       sighttype='cafe'
+      </if>
+      <if test="type != null and 'food'.equalsIgnoreCase(type)">
+       sighttype='restaurant'
+      </if>
+      <if test="type != null and 'stay'.equalsIgnoreCase(type)">
+       sighttype='stay'
+      </if>
+      <if test="email != null and type != null and 'near'.equalsIgnoreCase(type)">
+       K.address like 
+		   (select member_address1||' '||member_address2||'%'
+			from ksight_member
+			where email=#{email})
+	  </if>
+     </where>
+     )
+ </select>
+ 
+ <select id="profile_category" resultType="semi_project.ksight.dto.KsightDTO">
+   select distinct ${category}
+   from ksight
+   where address like
+         (select distinct substr(address,0,9)||'%'
+          from ksight
+          where sightname=#{sightname})
+ </select>
+ 
+ <insert id="sightupload">
+   insert into ksight (num,sightname,title,explain,mediatype,sighttype,opentime,breaktime,holiday,tel,address,checkdate)
+   values (ksight_num_seq.nextval,#{sightname},#{title},#{explain},#{mediatype},#{sighttype},#{opentime},#{breaktime},#{holiday},#{tel},#{address},sysdate)
+ </insert>
+ 
+ 
+
+</mapper>

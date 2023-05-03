@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SP_photo">
+ <insert id="upload">
+  insert into ksight_photo (email, photo_url, photo_sight, photonum, photo_size)	
+  values (#{email}, #{photo_url}, #{photo_sight}, ksight_photo_photonum_seq.nextval, #{photo_size})
+ </insert>
+ 
+ <select id="list" resultType="semi_project.photo.dto.KsightPhotoDTO">
+  select p.*, m.id 
+  from ksight_photo p, ksight_member m
+  where p.email=m.email and photo_sight=#{sightname}
+  order by photonum
+ </select>
+ 
+ <select id="index_list" resultType="semi_project.photo.dto.KsightPhotoDTO">
+  select sightname, photo_url
+  from ksight K, ksight_photo P
+  where k.sightname=p.photo_sight and k.title=#{maintitle}
+  order by upload_date
+ </select>
+ 
+</mapper>

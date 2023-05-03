@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SP_review">
+<select id="sight_review" resultType="semi_project.review.dto.ReviewDTO">
+  select rnum, id, content, rate, show, board_group, bg_seq, reply_grade, email, 
+  (to_char(write_date, 'hh24:mi mm-dd')) as write_date
+  from ksight_review
+  where rsightname=#{sightname} and show = 'y'
+  order by write_date desc
+ </select>
+ 
+ <select id="rateCount" resultType="semi_project.review.dto.RateDTO">
+  select count(case when rate=5 then 1 end) as c_5,
+         count(case when rate=4 then 1 end) as c_4,
+         count(case when rate=3 then 1 end) as c_3,
+         count(case when rate=2 then 1 end) as c_2,
+         count(case when rate=1 then 1 end) as c_1,
+         count(*) as c_all,
+         avg(rate) as c_avg
+  from ksight_review
+  where rsightname=#{sightname}
+ </select>
+
+ <insert id="insert">
+	insert into ksight_review (rnum, rsightname, id, content, rate, email, BOARD_GROUP,BG_SEQ,REPLY_GRADE) 
+	values (ksight_review_rnum_seq.nextval,#{rsightname} ,#{id}, #{content}, #{rate}, #{email}, ksight_review_rnum_seq.nextval,1,0)
+ </insert>
+ 
+ <select id="findId" resultType="String">
+ 	select id from ksight_member where email=#{email}
+ </select>
+
+ <delete id="delete">
+ 	update ksight_review set show = 'n' where rnum=#{rnum}
+ </delete>
+ 
+</mapper>

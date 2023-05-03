@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SP_nboard">
+
+<!-- 공지사항게시판의 글 갯수. -->
+ <select id="count" resultType="int">
+  select count(*) from ksight_nboard
+   <choose>
+   <when test="subject != 'none'">
+   where subject=#{subject} and title like #{keyword}
+   </when>
+   <otherwise>
+    where title like #{keyword}
+   </otherwise>
+   </choose>
+ </select>
+ 
+<!-- 공지사항게시판의 글 검색 + 페이징 -->
+ <select id="list" resultType="semi_project.nboard.dto.NboardDTO">
+  select * 
+  from (
+   select A.*, rownum as rn
+   from (
+    select num, title, (to_char(write_date, 'hh24:mi mm-dd')) as write_date
+    , readcount, subject
+    from ksight_nboard
+    <choose>
+    <when test="subject != 'none'">
+    where subject=#{subject} and title like #{keyword}
+    </when>
+    <otherwise>
+    where title like #{keyword}
+    </otherwise>
+    </choose>
+    order by num desc) A
+   ) 
+  where rn between #{start} and #{end}
+ </select>
+ 
+ <!-- 공지사항 글 삭제 (공지사항은 덧글기능이 없어서 완전 삭제) -->
+ <delete id="delete">
+  delete from ksight_nboard 
+  where num=#{num}
+ </delete>
+ 
+ <!-- 조회수 증가 처리 -->
+ <update id="plusReadCount">
+  update ksight_nboard set readcount=readcount+1
+  where num=#{num}
+ </update>
+ 
+ <!-- 공지사항 글 열람 -->
+ <select id="view" resultType="semi_project.nboard.dto.NboardDTO">
+  select num, title, (to_char(write_date, 'hh24:mi mm-dd')) as write_date, content
+    , readcount, subject from ksight_nboard
+  where num=#{num}
+ </select>
+ 
+ <!-- 글 수정페이지 -->
+ <select id="toupdate" resultType="semi_project.nboard.dto.NboardDTO">
+  select num, title, (to_char(write_date, 'hh24:mi mm-dd')) as write_date, content
+    , readcount, subject from ksight_nboard
+  where num=#{num}
+ </select>
+ 
+ <!-- 페이지 글 수정 -->
+ <update id="update">
+  update ksight_nboard
+  set subject=#{subject}, title=#{title}, content=#{content}
+  where num=#{num} 
+ </update>
+ 
+ <insert id="insert">
+  insert into ksight_nboard
+  (num, subject, title, content) values
+  (ksight_nboard_seq.nextval, #{subject}, #{title}, #{content})
+ </insert>
+ 
+</mapper>

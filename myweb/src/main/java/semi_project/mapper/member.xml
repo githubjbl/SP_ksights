@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="SP_member">
+ <select id="count" resultType="int">
+  select count(*) from ksight_member
+    where mediatype like #{keyword}
+ </select>
+ 
+ <select id="list" resultType="semi_project.member.dto.SP_MemberDTO">
+  select * 
+   from (
+    select A.*, rownum as rn
+    from (
+      select id, email, mediatype, join_date, member_level
+      from ksight_member
+      order by join_date desc
+      ) A
+) where rn between #{start} and #{end}
+ </select>
+
+<select id="view" resultType="semi_project.member.dto.SP_MemberDTO">
+  select * from ksight_member
+  where email=#{email}
+</select> 
+
+<insert id="insert">
+ insert into ksight_member (
+ id,password,member_name,member_address1,member_address2
+ ,email,gender,mediatype,phone,birthday) values
+ (#{id},#{password},#{member_name},#{member_address1},#{member_address2}
+ ,#{email},#{gender},#{mediatype},#{phone},#{birthday})
+</insert>
+
+<update id="update">
+ update ksight_member set 
+ id=#{id}, password=#{password}, member_address1=#{member_address1}
+ , member_address2=#{member_address2}, mediatype=#{mediatype}
+ where email=#{email}
+</update>
+
+<delete id="delete">
+ delete from ksight_member where email=#{email}
+</delete>
+ 
+<select id="checklogin" resultType="semi_project.member.dto.SP_MemberDTO">
+  select * from ksight_member 
+  where email = #{email}
+</select>
+ 
+ <select id="findPassword" resultType="semi_project.member.dto.SP_MemberDTO">
+  select * from ksight_member
+  where email=#{email} and member_name=#{member_name} and birthday=#{birthday}
+ </select>
+ 
+ <update id="changePassword">
+  update ksight_member set password=#{password} where email=#{email}
+ </update>
+ 
+ <select id="checkid" resultType="int">
+  select count(*) from ksight_member where id=#{id}
+ </select>
+ 
+ <select id="checkadmin" resultType="int">
+  select member_level from ksight_member where email=#{session_email}
+ </select>
+ 
+</mapper>
