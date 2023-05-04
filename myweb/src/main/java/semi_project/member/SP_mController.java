@@ -58,7 +58,6 @@ public class SP_mController extends HttpServlet {
 			HttpSession session = request.getSession();
 			String session_email = (String)session.getAttribute("email");
 			int member_level = dao.checkadmin(session_email);
-			System.out.println("level? "+member_level);
 			SP_MemberDTO dto = dao.view(email);
 			request.setAttribute("dto", dto);
 			String page = "/semi_project/member/member_view.jsp";
@@ -78,7 +77,6 @@ public class SP_mController extends HttpServlet {
 			String gender = request.getParameter("gender");
 			String mediatype = request.getParameter("mediatype");
 			String phone = request.getParameter("phone");
-			System.out.println(member_address1+"///"+member_address2);
 			//String으로 입력받은 생일 Date로 타입변경 & yyyymmdd 에서 yyyy-mm-dd로 변경
 			String inputbrithday = request.getParameter("birthday");
 			SimpleDateFormat bdf = new SimpleDateFormat("yyyyMMdd");
@@ -148,10 +146,8 @@ public class SP_mController extends HttpServlet {
 				session.setAttribute("email", email);
 				session.setAttribute("password", password);
 				dto = dao.infologin(email);
-				System.out.println(dto);
 				int level = dto.getMember_level();
 				session.setAttribute("member_level", level);
-				System.out.println("level??!"+level+"//"+session.getAttribute("member_level"));
 				request.setAttribute("dto", dto);
 				String page = "/semi_project/member/member_login.jsp";
 				String page2 = "/semi_project/member/member_register.jsp";
@@ -181,7 +177,6 @@ public class SP_mController extends HttpServlet {
 			map.put("member_name", member_name);
 			map.put("birthday", birthday);
 			dto = dao.findPassword(map);
-			System.out.println(dto);
 			if(dto.getJoin_date() != null) {
 				request.setAttribute("dto", dto);
 				String page = "/semi_project/member/member_changePassword.jsp";
@@ -234,7 +229,6 @@ public class SP_mController extends HttpServlet {
 		}else if(uri.indexOf("checkid.do") != -1) {
 			String id = request.getParameter("id");
 			int checkid = dao.checkid(id);
-			System.out.println(checkid);
 			String check = "";
 			if(checkid == 0) {
 				check = "y";

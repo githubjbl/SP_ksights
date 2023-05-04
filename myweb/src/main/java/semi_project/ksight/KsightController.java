@@ -43,7 +43,6 @@ public class KsightController extends HttpServlet {
 			String kword = request.getParameter("kword");
 			if(kword == null) kword = "";
 			int count = dao.ksight_count(kword);
-			System.out.println(count);
 			int curPage = 1;
 			if(request.getParameter("curPage") != null) {
 				curPage = Integer.parseInt(request.getParameter("curPage"));
@@ -53,7 +52,6 @@ public class KsightController extends HttpServlet {
 			int end = pager.getPageEnd();
 			List<KsightDTO> list = dao.ksight_list(start,end,kword);
 			List<KsightDTO> list2 = dao.ksight_list_title(kword);
-			System.out.println(list2);
 			String page = "/semi_project/ksight/ksight_search_list.jsp";
 			if(!list.isEmpty()) {
 				request.setAttribute("list", list);
@@ -61,7 +59,6 @@ public class KsightController extends HttpServlet {
 				request.setAttribute("page", pager);
 				request.setAttribute("kword", kword);
 				request.setAttribute("count", count);
-				System.out.println(kword);
 			}else {
 				String message = "입력하신 검색어에 해당하는 결과가 없습니다.";
 				request.setAttribute("message", message);
@@ -93,7 +90,6 @@ public class KsightController extends HttpServlet {
 				ratedto = dao2.rateCount(sightname);
 				ratedto.setC_avg(Double.parseDouble(String.format("%.2f",ratedto.getC_avg())));
 				
-				System.out.println(ratedto);
 			}else {
 				ratedto.setC_1(0);
 				ratedto.setC_2(0);
@@ -102,7 +98,6 @@ public class KsightController extends HttpServlet {
 				ratedto.setC_5(0);
 				ratedto.setC_all(0);
 				ratedto.setC_avg(0.00);
-				System.out.println(ratedto);
 			}
 			KsightPhotoDTO pdto = new KsightPhotoDTO();
 			int pcount = 0;
@@ -121,7 +116,6 @@ public class KsightController extends HttpServlet {
 			request.setAttribute("rlist", rlist);
 			request.setAttribute("ratedto", ratedto);
 			request.setAttribute("sightname", sightname);
-			System.out.println(list);
 			String page = "/semi_project/ksight/ksight_profile.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
@@ -133,7 +127,7 @@ public class KsightController extends HttpServlet {
 			String mediatype = "";
 			String initial = "";
 			String initial2 = "";
-			String page = "/semi_project/ksight/ksight_list.jsp";
+			String page = "/semi_project/ksight/ksight_list.jsp"; //지역별 정렬 페이지
 			if(sort.equals("na")){
 				member_address1 = request.getParameter("p1");
 				member_address2 = request.getParameter("p2");
@@ -181,7 +175,6 @@ public class KsightController extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("list_pager", list_pager);
 			request.setAttribute("page", pager);
-			System.out.println(list_pager);
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 		}else if(uri.indexOf("sort_t.do") != -1) {
@@ -213,10 +206,8 @@ public class KsightController extends HttpServlet {
 			if(type == null) type = "none";
 			HttpSession session = request.getSession();
 			String email = (String)session.getAttribute("email");
-			System.out.println("email"+email);
 			if(email == null) email = " ";
 			int count = dao.ksight_count_ingi(sort,type,email);
-			System.out.println(count);
 			int curPage = 1;
 			if(request.getParameter("curPage") != null) {
 				curPage = Integer.parseInt(request.getParameter("curPage"));
@@ -226,10 +217,6 @@ public class KsightController extends HttpServlet {
 			int end = pager.getPageEnd();
 			List<KsightDTO> list = dao.ksight_list_ingi(start,end,sort,type,email);
 			
-			KsightPhotoDAO pdao = new KsightPhotoDAO();
-			List<KsightPhotoDTO> plist = pdao.list_ingi(sort,type,email);
-			
-			System.out.println("list"+list);
 			request.setAttribute("page", pager);
 			request.setAttribute("sort", sort);
 			request.setAttribute("type", type);
@@ -280,7 +267,6 @@ public class KsightController extends HttpServlet {
 			dto.setTel(tel);
 			dto.setAddress(address);
 			
-			System.out.println(dto);
 			dao.sightupload(dto);
 			
 			//클라이언트 ip주소 가져오기
@@ -289,7 +275,6 @@ public class KsightController extends HttpServlet {
 				InetAddress inetAddress = InetAddress.getLocalHost();
 				ip = inetAddress.getHostAddress();
 			}
-			System.out.println("클라이언트IP주소 : " + ip);
 			String filename = " "; //공백 1개
 			int filesize = 0;
 			try {
@@ -309,13 +294,11 @@ public class KsightController extends HttpServlet {
 				e.printStackTrace();
 			}
 			String photo_sight = multi.getParameter("sightname");
-			System.out.println(photo_sight);
 			KsightPhotoDTO pdto = new KsightPhotoDTO();
 			pdto.setEmail(email);
 			pdto.setPhoto_sight(photo_sight);
 			pdto.setPhoto_url(filename);
 			pdto.setPhoto_size(filesize);
-			System.out.println(pdto);
 			KsightPhotoDAO pdao = new KsightPhotoDAO();
 			pdao.upload(pdto);
 			String page = "/semi_project/index.jsp";

@@ -33,7 +33,6 @@ public class NboardController extends HttpServlet {
 			if(keyword == null) keyword = "";
 			if(subject == null) subject = "none";
 			int count = dao.nboard_count(subject,keyword);
-			System.out.println(count);
 			int curPage = 1;
 			if(request.getParameter("curPage") != null) {
 				curPage = Integer.parseInt(request.getParameter("curPage"));

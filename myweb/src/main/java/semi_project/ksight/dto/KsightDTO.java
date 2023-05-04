@@ -18,12 +18,13 @@ public class KsightDTO {
 	private int scount; //같은장소 다른촬영으로 중복된장소가 많음. 중복갯수(테이블에 없음)
 	private int tcount; //같은장소 다른촬영으로 중복된타이틀이 많음. 중복갯수(테이블에 없음)
 	private int sortnum; //촬영지 index로 삼을 것(테이블에 없음)
+	private String photo_url; //사진파일 경로 (테이블에 없음)
 	
 	public KsightDTO() {}
 
 	public KsightDTO(int num, String mediatype, String title, String sightname, String sighttype, String explain,
 			String opentime, String breaktime, String holiday, String address, String tel, Date checkdate, int scount,
-			int tcount, int sortnum) {
+			int tcount, int sortnum, String photo_url) {
 		super();
 		this.num = num;
 		this.mediatype = mediatype;
@@ -40,14 +41,7 @@ public class KsightDTO {
 		this.scount = scount;
 		this.tcount = tcount;
 		this.sortnum = sortnum;
-	}
-
-	@Override
-	public String toString() {
-		return "KsightDTO [num=" + num + ", mediatype=" + mediatype + ", title=" + title + ", sightname=" + sightname
-				+ ", sighttype=" + sighttype + ", explain=" + explain + ", opentime=" + opentime + ", breaktime="
-				+ breaktime + ", holiday=" + holiday + ", address=" + address + ", tel=" + tel + ", checkdate="
-				+ checkdate + ", scount=" + scount + ", tcount=" + tcount + ", sortnum=" + sortnum + "]";
+		this.photo_url = photo_url;
 	}
 
 	public int getNum() {
@@ -170,5 +164,22 @@ public class KsightDTO {
 		this.sortnum = sortnum;
 	}
 
+	public String getPhoto_url() {
+		return photo_url;
+	}
 
+	public void setPhoto_url(String photo_url) {
+		this.photo_url = photo_url;
+	}
+
+	@Override
+	public String toString() {
+		return "KsightDTO [num=" + num + ", mediatype=" + mediatype + ", title=" + title + ", sightname=" + sightname
+				+ ", sighttype=" + sighttype + ", explain=" + explain + ", opentime=" + opentime + ", breaktime="
+				+ breaktime + ", holiday=" + holiday + ", address=" + address + ", tel=" + tel + ", checkdate="
+				+ checkdate + ", scount=" + scount + ", tcount=" + tcount + ", sortnum=" + sortnum + ", photo_url="
+				+ photo_url + "]";
+	}
+
+	
 }

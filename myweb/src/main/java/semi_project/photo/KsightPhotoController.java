@@ -55,7 +55,6 @@ public class KsightPhotoController extends HttpServlet {
 				InetAddress inetAddress = InetAddress.getLocalHost();
 				ip = inetAddress.getHostAddress();
 			}
-			System.out.println("클라이언트IP주소 : " + ip);
 			String filename = " "; //공백 1개
 			int filesize = 0;
 			try {
@@ -75,13 +74,11 @@ public class KsightPhotoController extends HttpServlet {
 				e.printStackTrace();
 			}
 			String photo_sight = multi.getParameter("sightname");
-			System.out.println(photo_sight);
 			KsightPhotoDTO dto = new KsightPhotoDTO();
 			dto.setEmail(email);
 			dto.setPhoto_sight(photo_sight);
 			dto.setPhoto_url(filename);
 			dto.setPhoto_size(filesize);
-			System.out.println(dto);
 			dao.upload(dto);
 			String referrerPage = request.getHeader("referer");
 			response.sendRedirect(referrerPage);
@@ -92,7 +89,6 @@ public class KsightPhotoController extends HttpServlet {
 			request.setAttribute("plist", plist);
 			String page = "/semi_project/ksight/ksight_gallery.jsp";
 			RequestDispatcher rd = request.getRequestDispatcher(page);
-			System.out.println(plist);
 			rd.forward(request, response);
 		}else if(uri.indexOf("index.do") != -1) {
 			String maintitle1 = "미스터 션샤인";

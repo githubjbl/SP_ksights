@@ -48,7 +48,6 @@ public class ReviewController extends HttpServlet {
 		}else if(uri.indexOf("delete.do") != -1) {
 			int rnum = Integer.parseInt(request.getParameter("rnum"));
 			String rsightname = request.getParameter("rsightname");
-			System.out.println(rnum);
 			dao.delete(rnum);
 			String page = "/SP_ksight/profile.do?sightname=";
 			String loc = new String(rsightname.getBytes("utf-8"),"8859_1");

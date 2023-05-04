@@ -9,8 +9,6 @@ public class Util {
 			for (Cookie element : cookies) {
 				if(element.getName().equals(name)) {
 					result = element.getValue();
-					System.out.println(element.getName());
-					System.out.println(result);
 					break;
 				}
 			}

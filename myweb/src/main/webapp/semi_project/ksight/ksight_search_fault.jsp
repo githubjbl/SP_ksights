@@ -13,6 +13,7 @@
 </head>
 <body>
 <jsp:include page="/semi_project/module/navbarUse.jsp"></jsp:include>
+<jsp:include page="/semi_project/module/sortUse.jsp"></jsp:include>
 
 <div>
  	<h1>${message}</h1>

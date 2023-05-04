@@ -65,25 +65,25 @@ $(function(){
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
   
-  <div class="item active" style="background-image: url('/myweb/semi_project/images/lotteworld.jpg');" id="jumbo_lotte">
+  <div class="item active" style="background-image: url('/myweb/semi_project/images/background/lotteworld.jpg');" id="jumbo_lotte">
     <div class="container text-center">
      <h1 class="jumbo_h1">#롯데월드</h1>      
     </div>
    </div>
    
-   <div class="item" style="background-image: url('/myweb/semi_project/images/k-pop.jpg');">
+   <div class="item" style="background-image: url('/myweb/semi_project/images/background/k-pop.jpg');">
     <div class="container text-center">
      <h1 class="jumbo_h1">K-POP</h1>      
     </div>
    </div>
     
-    <div class="item" style="background-image: url('/myweb/semi_project/images/k-drama.jpg');">
+    <div class="item" style="background-image: url('/myweb/semi_project/images/background/k-drama.jpg');">
      <div class="container text-center">
      <h1 class="jumbo_h1">K-DRAMA</h1>      
      </div>
     </div>
     
-    <div class="item" style="background-image: url('/myweb/semi_project/images/k-movie.jpg');">
+    <div class="item" style="background-image: url('/myweb/semi_project/images/background/k-movie.jpg');">
      <div class="container text-center">
      <h1 class="jumbo_h1">K-MOVIE</h1>      
      </div>

@@ -90,7 +90,7 @@ $(function() {
 	
 	$("#btnSort_m").click(function(){
 		var mediatype = $('input[name="mediatype"]:checked').val();
-		var ini = $('input[name="mfirstname"]:checked').val();
+		var ini = $('input[name="firstname"]:checked').val();
 		if(ini==null){
 			alert("옵션을 선택하세요.")
 			return;
@@ -99,7 +99,7 @@ $(function() {
 	});
 	$("#btnSort_a").click(function(){
 		var mediatype = "artist";
-		var ini = $('input[name="afirstname"]:checked').val();
+		var ini = $('input[name="firstname"]:checked').val();
 		if(ini==null){
 			alert("옵션을 선택하세요.")
 			return;
@@ -315,7 +315,7 @@ body {
 			 <c:forEach var="i" items="<%=ini%>" varStatus="st">
 			  <span> 
 			   <input type="radio" name="firstname" id="mfirstname${st.index}" value="${st.index}"> 
-			   <label for="firstname${st.index}">${i}</label>
+			   <label for="mfirstname${st.index}">${i}</label>
 		      </span>
 			 </c:forEach>
 			</div>
@@ -334,7 +334,7 @@ body {
   		  <div style="text-align: center;">
 		   <c:forEach var="i" items="<%=ini%>" varStatus="st">
 			<span> <input type="radio" name="firstname" id="afirstname${st.index}" value="${st.index}"> 
-			 <label for="firstname${st.index}">${i}</label>
+			 <label for="afirstname${st.index}">${i}</label>
 			</span>
 		   </c:forEach>
 		  </div>

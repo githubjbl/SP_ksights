@@ -74,7 +74,17 @@ function list(page){
      	<c:if test="${i%j==0}">
       		<tr>
      	</c:if>
-       			<td><img alt="220*220" src="/myweb/semi_project/images/gf.png"> </td>
+       			<td>
+       		<c:choose>
+       			<c:when test="${dto.photo_url != null}">
+       				<img alt="220*220" src="${path}/semi_project/images/ksights/${dto.photo_url}" width="220px" height="220px">
+       			</c:when>
+       			<c:otherwise>
+       				<img alt="220*220" src="${path}/semi_project/images/ksights/empty^.jpg" width="220px" height="220px">
+       			</c:otherwise>		
+       		</c:choose>
+				</td>
+       			
        			<td>
         			<ol id="listOl">  
          				<li>

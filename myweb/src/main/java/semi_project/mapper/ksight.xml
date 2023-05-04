@@ -30,6 +30,8 @@
   from (
    select A.*, rownum as rn
    from (
+    select B.*, P.photo_url
+    from(
      select sightname, address, sighttype, count(*) as scount
   	 from(
     	 select sightname, address, sighttype
@@ -45,7 +47,9 @@
 	 	 from ksight where address like #{kword}
 	 	 )
 	 group by sightname, address, sighttype
- 	 order by sightname) A
+ 	 order by sightname) B left join ksight_photo P
+ 	 on B.sightname = P.photo_sight
+ 	 ) A
    ) 
   where rn between #{start} and #{end}
  </select>
@@ -83,6 +87,8 @@
  from (
        select A.*, rownum as rn
        from (
+        select B.*, P.photo_url
+        from(
              select sightname, address, sighttype, count(*) as scount 
   		     from ksight
  		     <choose>
@@ -106,7 +112,9 @@
   		     </otherwise>
  		     </choose>
   		     group by sightname, address, sighttype
- 	   order by sightname) A
+ 	         order by sightname ) B left join ksight_photo P
+		   on B.sightname = P.photo_sight    
+ 	   ) A
    ) 
   where rn between #{start} and #{end}
 </select>
@@ -170,11 +178,15 @@
   from (
        select A.*, rownum as rn
        from (
+         select B.*, P.photo_url
+         from (
             select sightname, address, sighttype, count(*) as scount 
             from ksight
             where title=#{title}
             group by sightname, address, sighttype
-            order by sightname
+            order by sightname 
+            ) B left join ksight_photo P
+            on B.sightname = P.photo_sight
             ) A
        ) 
   where rn between #{start} and #{end}
@@ -187,6 +199,8 @@
  from (
    select A.*, rownum as rn
    from(
+ select B.*, p.photo_url
+ from(
  <choose>
    <when test="sort != null and 'film'.equalsIgnoreCase(sort) or 'none'.equalsIgnoreCase(sort)">
      select rank() over(order by K.scount desc) sortnum, K.sightname, nvl(R.rcount,0) tcount, K.address, K.sighttype, K.scount
@@ -232,7 +246,8 @@
 	  </if>
      </where>
      order by sortnum, sightname
-    ) A
+    ) B left join ksight_photo P
+    on B.sightname = P.photo_sight)A
   )
   where rn between #{start} and #{end}
  </select>

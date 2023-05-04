@@ -94,7 +94,6 @@ public class SP_MemberDAO {
 			String password_BC = BCrypt.hashpw(password, BCrypt.gensalt());
 			dto.setPassword(password_BC);
 			dto = session.selectOne("SP_member.checklogin", dto);
-			System.out.println(dto);
 			if(dto != null) {
 				if(BCrypt.checkpw(password, dto.getPassword())) {
 					result = dto.getId() + "님 로그인";
@@ -109,7 +108,6 @@ public class SP_MemberDAO {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(result);
 		return result;
 	}
 
