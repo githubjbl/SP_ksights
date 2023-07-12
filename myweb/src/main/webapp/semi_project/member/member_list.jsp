@@ -85,6 +85,10 @@ function deletem(email){
 	}
 	
 }
+
+function list(page){
+	location.href = "${path}/SP_ksight_member/list.do?curPage="+page;
+}
 </script>
 </head>
 <body>
@@ -124,10 +128,14 @@ function deletem(email){
                   <tbody>
                   <c:forEach var="dto" items="${list}" >
                           <tr>
-                            <td align="center">
+                          <td align="center">
+                          <c:if test="${sessionScope.member_level > dto.member_level}">
+                          
                               <a class="btn btn-default" href="#" onclick="view('${dto.email}')"  ><img src="${path}/semi_project/images/info-circle.svg"></a>
                               <a class="btn btn-danger" href="#" onclick="deletem('${dto.email}')"><img src="${path}/semi_project/images/trash3-fill.svg"></a>
-                            </td>
+                            
+                          </c:if>
+                          </td>
                             <td class="hidden-xs">${dto.member_level}</td>
                             <td>${dto.id}</td>
                             <td>${dto.email}</td>
@@ -148,23 +156,50 @@ function deletem(email){
             
               </div>
               <div class="panel-footer">
-                <div class="row">
-                  <div class="col col-xs-4">Page 1 of 5
-                  </div>
-                  <div class="col col-xs-8">
-                    <ul class="pagination hidden-xs pull-right">
-                      <li><a href="#">1</a></li>
-                      <li><a href="#">2</a></li>
-                      <li><a href="#">3</a></li>
-                      <li><a href="#">4</a></li>
-                      <li><a href="#">5</a></li>
-                    </ul>
-                    <ul class="pagination visible-xs pull-right">
-                        <li><a href="#">«</a></li>
-                        <li><a href="#">»</a></li>
-                    </ul>
-                  </div>
-                </div>
+              
+              
+              
+              
+              <!-- 하단 페이징버튼 -->
+  	<div style="text-align: center;">
+   		<ul class="pagination pagination-lg">
+    	<c:if test="${page.curPage > 1}">
+     		<li class="page-item">
+      			<a class="page-link" href="#" onclick="list('1')">&laquo;</a>
+     		</li>
+    	</c:if>
+    	<c:if test="${page.curBlock > 1}">
+     		<li class="page-item active">
+      			<a class="page-link" href="#" onclick="list('${page.prevPage}')">&lt;</a>
+     		</li>
+    	</c:if>
+    <c:forEach var="num" begin="${page.blockStart}" end="${page.blockEnd}">
+     	<c:choose>
+      	<c:when test="${num == page.curPage}">
+       		<li class="page-item">
+        		<span class="page-link" style="color: red">${num}</span>
+       		</li>
+      	</c:when>
+      	<c:otherwise>
+       		<li class="page-item">
+        		<a class="page-link" href="#" onclick="list('${num}')">${num}</a>
+       		</li>
+      	</c:otherwise>
+     	</c:choose>
+	</c:forEach>
+    	<c:if test="${page.curBlock < page.totBlock}">
+     		<li class="page-item">
+      			<a class="page-link" href="#" onclick="list('${page.nextPage}')">&gt;</a>
+     		</li>
+    	</c:if>
+    	<c:if test="${page.curPage < page.totPage}">
+     		<li class="page-item">
+      			<a class="page-link" href="#" onclick="list('${page.totPage}')">&raquo;</a>
+     		</li>
+    	</c:if>
+   		</ul>
+	</div>
+              
               </div>
             </div>
         </div>

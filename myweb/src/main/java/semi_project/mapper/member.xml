@@ -66,4 +66,8 @@
   select member_level from ksight_member where email=#{session_email}
  </select>
  
+ <update id="update_admin">
+ 	update ksight_member set member_level=#{member_level} where email=#{email}
+ </update>
+ 
 </mapper>

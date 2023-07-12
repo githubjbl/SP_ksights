@@ -151,8 +151,9 @@ public class SP_mController extends HttpServlet {
 				request.setAttribute("dto", dto);
 				String page = "/semi_project/member/member_login.jsp";
 				String page2 = "/semi_project/member/member_register.jsp";
+				String page3 = "/semi_project/member/member_findpassword.jsp";
 				String referrerPage = request.getHeader("referer");
-				if(referrerPage.indexOf(page) != -1 || referrerPage.indexOf(page2) != -1) {
+				if(referrerPage.indexOf(page) != -1 || referrerPage.indexOf(page2) != -1 || referrerPage.indexOf(page3) != -1) {
 					response.sendRedirect(context+"/semi_project/index.jsp");
 				}else {
 					response.sendRedirect(referrerPage);
@@ -241,6 +242,20 @@ public class SP_mController extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher(page);
 			rd.forward(request, response);
 			
+		}else if(uri.indexOf("update_admin.do") != -1) {
+			String email = request.getParameter("email");
+			int member_level = Integer.parseInt(request.getParameter("member_level"));
+			
+			SP_MemberDTO dto = new SP_MemberDTO();
+			dto.setEmail(email);
+			dto.setMember_level(member_level);
+			
+			dao.update_admin(dto);
+			String page = "/semi_project/index.jsp";
+			response.setContentType("text/html; charset=UTF-8");
+			PrintWriter writer = response.getWriter();
+			writer.println("<script>alert('회원등급이 변경되었습니다.'); location.href='"+context+page+"'</script>");
+			writer.close();
 		}
 		
 		

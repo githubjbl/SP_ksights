@@ -95,7 +95,7 @@ $(document).ready(function() {
       </div>
       <form name="update_admin_form" method="post">
        <input type="hidden" value="${dto.email}" name="email">
-       <input type="hidden" name="member_level" name="member_level">
+       <input type="hidden" id="member_level" name="member_level">
       </form>
      </div>
      <div class="panel-footer">

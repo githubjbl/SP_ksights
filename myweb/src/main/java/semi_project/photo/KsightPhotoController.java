@@ -3,13 +3,13 @@ package semi_project.photo;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,10 +21,8 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import common.Constants;
-import semi_project.ksight.dto.KsightDTO;
 import semi_project.photo.dao.KsightPhotoDAO;
 import semi_project.photo.dto.KsightPhotoDTO;
-import semi_project.review.dto.RateDTO;
 
 
 @WebServlet("/SP_ksight_photo/*")

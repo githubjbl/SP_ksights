@@ -161,6 +161,16 @@ public class SP_MemberDAO {
 		return result;
 	}
 
+	public void update_admin(SP_MemberDTO dto) {
+		try(SqlSession session = MybatisManager.getInstance().openSession()){
+			session.update("SP_member.update_admin", dto);
+			session.commit();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 
 
 }
